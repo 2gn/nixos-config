@@ -27,7 +27,7 @@
       btop              # Resource Manager
       nitch             # Minimal fetch
       ranger            # File Manager
-      tldr              # Helper
+      teerdeer          # Helper
 
       # Video/Audio
       feh               # Image Viewer
@@ -109,7 +109,7 @@
       #ansible          # Automation
       #blueman          # Bluetooth
       #deluge           # Torrents
-      #discord          # Chat
+      # discord          # Chat
       #ffmpeg           # Video Support (dslr)
       #gmtp             # Mount MTP (GoPro)
       #gphoto2          # Digital Photography

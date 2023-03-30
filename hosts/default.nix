@@ -11,7 +11,7 @@
 #            └─ ./home.nix 
 #
 
-{ lib, inputs, nixpkgs, home-manager, nur, user, location, doom-emacs, hyprland, plasma-manager, ... }:
+{ lib, inputs, nixpkgs, home-manager, nur, user, location, hyprland, plasma-manager, ... }:
 
 let
   system = "x86_64-linux";                                  # System architecture
@@ -30,8 +30,8 @@ in
       inherit inputs user location hyprland system;
       host = {
         hostName = "desktop";
-        mainMonitor = "HDMI-A-3";
-        secondMonitor = "DP-1";
+        # mainMonitor = "HDMI-A-3";
+        # secondMonitor = "DP-1";
       };
     };                                                      # Pass flake variable
     modules = [                                             # Modules that are used.
@@ -67,7 +67,7 @@ in
       inherit inputs user location;
       host = {
         hostName = "laptop";
-        mainMonitor = "eDP-1";
+        # mainMonitor = "eDP-1";
       };
     };
     modules = [
@@ -76,18 +76,32 @@ in
       ./configuration.nix
 
       home-manager.nixosModules.home-manager {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs = {
-          inherit user;
-          host = {
-            hostName = "laptop";
-            mainMonitor = "eDP-1";
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          extraSpecialArgs = {
+            inherit user;
+            host = {
+              hostName = "letsnot";
+              # mainMonitor = "eDP-1";
+            };
+          };
+          users.${user} = {
+            imports = [(import ./home.nix)] ++ [(import ./laptop/home.nix)];
           };
         };
-        home-manager.users.${user} = {
-          imports = [(import ./home.nix)] ++ [(import ./laptop/home.nix)];
-        };
+        # home-manager.useGlobalPkgs = true;
+        # home-manager.useUserPackages = true;
+        # home-manager.extraSpecialArgs = {
+        #   inherit user;
+        #   host = {
+        #     hostName = "letsnot";
+        #     # mainMonitor = "eDP-1";
+        #   };
+        # };
+        # home-manager.users.${user} = {
+        #   imports = [(import ./home.nix)] ++ [(import ./laptop/home.nix)];
+        # };
       }
     ];
   };

@@ -13,11 +13,6 @@
       enableCompletion = true;
       histSize = 100000;
 
-      ohMyZsh = {                               # Extra plugins for zsh
-        enable = true;
-        plugins = [ "git" ];
-      };
-
       shellInit = ''                            # Zsh theme
         # Spaceship
         source ${pkgs.spaceship-prompt}/share/zsh/site-functions/prompt_spaceship_setup

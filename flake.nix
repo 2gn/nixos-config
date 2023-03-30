@@ -27,7 +27,7 @@
       };
 
       darwin = {
-        url = "github:lnl7/nix-darwin/master";                              # MacOS Package Management
+        url = "github:2gn/nix-darwin/add-drag-on-gesture-option";             # MacOS Package Management
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
@@ -40,16 +40,10 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
-      emacs-overlay = {                                                     # Emacs Overlays
-        url = "github:nix-community/emacs-overlay";
-        flake = false;
-      };
-
-      doom-emacs = {                                                        # Nix-community Doom Emacs
-        url = "github:nix-community/nix-doom-emacs";
-        inputs.nixpkgs.follows = "nixpkgs";
-        inputs.emacs-overlay.follows = "emacs-overlay";
-      };
+      # emacs-overlay = {                                                     # Emacs Overlays
+      #   url = "github:nix-community/emacs-overlay";
+      #   flake = false;
+      # };
 
       hyprland = {                                                          # Official Hyprland flake
         url = "github:vaxerski/Hyprland";                                   # Add "hyprland.nixosModules.default" to the host modules
@@ -63,16 +57,16 @@
       };
     };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, darwin, nur, nixgl, doom-emacs, hyprland, plasma-manager, ... }:   # Function that tells my flake which to use and what do what to do with the dependencies.
+  outputs = inputs @ { self, nixpkgs, home-manager, darwin, nur, nixgl, hyprland, plasma-manager, ... }:   # Function that tells my flake which to use and what do what to do with the dependencies.
     let                                                                     # Variables that can be used in the config files.
-      user = "matthias";
+      user = "sapi0l";
       location = "$HOME/.setup";
     in                                                                      # Use above variables in ...
     {
       nixosConfigurations = (                                               # NixOS configurations
         import ./hosts {                                                    # Imports ./hosts/default.nix
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager nur user location doom-emacs hyprland plasma-manager;   # Also inherit home-manager so it does not need to be defined here.
+          inherit inputs nixpkgs home-manager nur user location hyprland plasma-manager;   # Also inherit home-manager so it does not need to be defined here.
         }
       );
 

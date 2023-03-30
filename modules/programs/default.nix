@@ -11,7 +11,7 @@
 #
 
 [
-  ./alacritty.nix
+  ./wezterm.nix
   ./rofi.nix
   ./wofi.nix
   #./waybar.nix
