@@ -22,29 +22,38 @@
   home = {                                # Specific packages for laptop
     packages = with pkgs; [
       # Applications
-      libreoffice                         # Office packages
+      # libreoffice                         # Office packages
+      arp-scan
+      aircrack-ng
+      anki
+      dirb
+      vlc
+      gh
+      sublime4
+      lmms
+      thunderbird
+      gimp
+      _ipassword-gui
+      nmap
+      nix-tree
+      libreoffice
+      wezterm
 
       # Display
-      #light                              # xorg.xbacklight not supported. Other option is just use xrandr.
+      light                              # xorg.xbacklight not supported. Other option is just use xrandr.
 
       # Power Management
-      #auto-cpufreq                       # Power management
-      #tlp                                # Power management
+      auto-cpufreq                       # Power management
+      tlp                                # Power management
     ];
   };
 
   programs = {
-    alacritty.settings.font.size = 11;
+    wezterm.enable = true;
   };
 
   services = {                            # Applets
     blueman-applet.enable = true;         # Bluetooth
     network-manager-applet.enable = true; # Network
-#   cbatticon = {
-#     enable = true;
-#     criticalLevelPercent = 10;
-#     lowLevelPercent = 20;
-#     iconType = null;
-#   };
   };
 }

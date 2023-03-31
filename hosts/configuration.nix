@@ -20,10 +20,10 @@
 
   users.users.${user} = {                   # System User
     isNormalUser = true;
+    description = "Hiram Tanner";
     extraGroups = [ "wheel" "video" "audio" "camera" "networkmanager" "lp" "scanner" "kvm" "libvirtd" "plex" ];
     shell = pkgs.zsh;                       # Default shell
   };
-  security.sudo.wheelNeedsPassword = false; # User does not need to give password when using sudo.
 
   time.timeZone = "Europe/Brussels";        # Time zone and internationalisation
   i18n = {
@@ -36,28 +36,27 @@
 
   console = {
     font = "Lat2-Terminus16";
-    keyMap = "us";                          # or us/azerty/etc
+    keyMap = "jp106";                       # or us/azerty/etc
   };
 
-  security.rtkit.enable = true;
-  security.polkit.enable = true;
-  #sound = {                                # Deprecated due to pipewire
-  #  enable = true;
-  #  mediaKeys = {
-  #    enable = true;
-  #  };
-  #};
+  security = {
+    sudo.wheelNeedsPassword = false; # User does not need to give password when using sudo.
+    rtkit.enable = true;
+    polkit.enable = true;
+  };
+  sound = {                                # Deprecated due to pipewire
+    enable = true;
+    mediaKeys = {
+      enable = true;
+    };
+  };
+
+  hardware.pulseaudio.enable = true;
 
   fonts.fonts = with pkgs; [                # Fonts
-    carlito                                 # NixOS
-    vegur                                   # NixOS
-    source-code-pro
-    jetbrains-mono
-    font-awesome                            # Icons
-    corefonts                               # MS
     (nerdfonts.override {                   # Nerdfont Icons override
       fonts = [
-        "FiraCode"
+        "Hasklig"
       ];
     })
   ];
@@ -69,13 +68,17 @@
       VISUAL = "nvim";
     };
     systemPackages = with pkgs; [           # Default packages installed system-wide
-      #vim
-      #git
+      git
       killall
       nano
       pciutils
       usbutils
       wget
+      zellij
+      helix
+      nil
+      binutils
+      cachix
     ];
   };
 
@@ -93,6 +96,7 @@
         userServices = true;
       };
     };
+    printing.enable = true;
     pipewire = {                            # Sound
       enable = true;
       alsa = {
@@ -128,6 +132,7 @@
                                             # com.obsproject.Studio
                                             # com.parsecgaming.parsec
                                             # com.usebottles.bottles
+
   };
 
   nix = {                                   # Nix Package Manager settings

@@ -38,30 +38,23 @@
   
   networking = {
     useDHCP = false;                        # Deprecated
-    hostName = "laptop";
+    hostName = "Lenovo";
     networkmanager.enable = true;
     interfaces = {
-      enp0s25 = {
-        useDHCP = true;                     # For versatility sake, manually edit IP on nm-applet.
-        #ipv4.addresses = [ {
-        #    address = "192.168.0.51";
-        #    prefixLength = 24;
-        #} ];
-      };
-      wlo1 = {
-        useDHCP = true;
-        #ipv4.addresses = [ {
-        #  address = "192.168.0.51";
-        #  prefixLength = 24;
-        #} ];  
+      wlp2s0 = {
+        macAddress = "74:12:B3:74:2A:58";
       };
     };
-    defaultGateway = "192.168.0.1";
-    nameservers = [ "192.168.0.4" ];
     firewall = {
-      enable = false;
-      #allowedUDPPorts = [ 53 67 ];
-      #allowedTCPPorts = [ 53 80 443 9443 ];
+      enable = true;
+      allowedTCPPorts = [
+        22
+        80
+        443
+      ];
+      allowedUDPPorts = [
+        53
+      ];
     };
   };
 
