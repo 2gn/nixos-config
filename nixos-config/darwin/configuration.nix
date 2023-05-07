@@ -7,7 +7,7 @@
 #       └─ ./configuration.nix *
 #
 
-{ config, pkgs, user, ... }:
+{ pkgs, user, ... }:
 
 {
   imports = [
@@ -23,7 +23,7 @@
       options = "--delete-older-than 7d";
     };
     extraOptions = ''
-      auto-optimise-store = true
+      auto-optimise-store = false
       experimental-features = nix-command flakes
     '';
   };
@@ -115,11 +115,13 @@
       "balenaetcher"
       "ballast"
       "blackhole-2ch"
+      "cloudflare-warp"
+      "chromium"
       "gimp-dev"
       "git-credential-manager-core"
       "inkscape"
       "karabiner-elements"
-      # "lapce"
+      "lapce"
       "lulu"
       "netnewswire"
       "monitorcontrol"
@@ -127,10 +129,11 @@
       "obsidian"
       "raspberry-pi-imager"
       "rectangle"
-      "sublime-text"
+      # "sublime-text"
       "scoot"
       "swiftcord"
       # "tribler"
+      "tomatobar"
       "vym"
       "vlc"
       "wireshark"
