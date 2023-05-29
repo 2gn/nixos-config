@@ -1,2 +1,4 @@
 result
 ./darwin/result
+darwin-configuration.nix
+home.nix
