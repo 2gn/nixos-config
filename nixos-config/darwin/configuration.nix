@@ -25,6 +25,7 @@
     extraOptions = ''
       auto-optimise-store = false
       experimental-features = nix-command flakes
+      trusted-users = root sapi0l
     '';
   };
   
@@ -115,11 +116,13 @@
       "balenaetcher"
       "ballast"
       "blackhole-2ch"
+      "calibre"
       "cloudflare-warp"
       "chromium"
       "gimp-dev"
       "git-credential-manager-core"
       "inkscape"
+      "ipfs"
       "karabiner-elements"
       "lapce"
       "lulu"
@@ -128,14 +131,16 @@
       "michaelvillar-timer"
       "obsidian"
       "raspberry-pi-imager"
+      "1kc-razer"
       "rectangle"
       # "sublime-text"
       "scoot"
       "swiftcord"
+      "superproductivity"
       # "tribler"
-      "tomatobar"
       "vym"
       "vlc"
+      "wacom-tablet"
       "wireshark"
       "wezterm"
       "zoom"
@@ -170,6 +175,7 @@
 			raivo-otp = 1498497896;
 			vimari = 1480933944;
 			onedrive = 823766827;
+      iknow = 417713473;
     };
   };
 

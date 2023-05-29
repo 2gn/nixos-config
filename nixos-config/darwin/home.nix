@@ -36,6 +36,8 @@ in
       tealdeer
       nodePackages.typescript-language-server
       typescript
+      nix-tree
+      nix-du
     ];
     stateVersion = "22.05";
   };
