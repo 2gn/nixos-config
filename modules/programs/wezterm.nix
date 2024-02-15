@@ -16,7 +16,7 @@
 				return {
 					font = wezterm.font 'Hasklug Nerd Font Mono',
 					enable_tab_bar = false,
-					color_scheme = "${color_scheme}",
+					color_scheme = "dracula",
 				}
       '';
     };

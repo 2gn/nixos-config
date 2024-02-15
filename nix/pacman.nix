@@ -12,11 +12,13 @@
 {
   home = {
     packages = [
-      (import nixgl { inherit pkgs; }).nixGLIntel       # OpenGL for GUI apps. Add to aliases is recommended.
-                                     #.nixVulkanIntel
-      pkgs.hello
-      pkgs.emacs
-    ];
+      [(import nixgl { inherit pkgs; }).nixGLIntel]       # OpenGL for GUI apps. Add to aliases is recommended.
+    ] + (with pkgs; [
+      hello
+      emacs
+      zellij
+      bat
+    ]);
 
     activation = {                                      # Run script during rebuild/switch.
       linkDesktopApplications = {                       # Script that will add all packages to the system menu. Mainly tested on Gnome.
@@ -36,7 +38,16 @@
   };
 
   programs = {                                          # Home-manager
+    zelilj = {
+      enable = true;
+    };
+    wezterm = {
+      enable = true;
+    };
     home-manager.enable = true;
+    rofi = {
+      enable = true;
+    }
   };
 
   nix = {                                               # Nix Package Manager settings

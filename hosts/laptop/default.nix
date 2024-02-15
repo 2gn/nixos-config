@@ -21,8 +21,7 @@
 {
   imports =                                               # For now, if applying to other system, swap files
     [(import ./hardware-configuration.nix)] ++            # Current system hardware config @ /etc/nixos/hardware-configuration.nix
-    [(import ../../modules/desktop/bspwm/default.nix)] ++ # Window Manager
-    [(import ../../modules/desktop/virtualisation/docker.nix)] ++  # Docker
+    # [(import ../../modules/desktop/virtualisation/docker.nix)] ++  # Docker
     (import ../../modules/hardware);                      # Hardware devices
 
   boot = {                                  # Boot options
@@ -50,6 +49,14 @@
     extraBackends = [ pkgs.sane-airscan ];
   };
 
+  i18n.inputMethod = {
+    enabled = "fcitx5";
+    fcitx5.addons = with pkgs; [
+      fcitx5-mozc
+      fcitx5-gtk
+    ];
+  };
+
   environment = {
     systemPackages = with pkgs; [
       simple-scan
@@ -68,7 +75,6 @@
     blueman.enable = true;
     printing = {                            # Printing and drivers for TS5300
       enable = true;
-      drivers = [ pkgs.cnijfilter2 ];
     };
     avahi = {                               # Needed to find wireless printer
       enable = true;
@@ -82,8 +88,10 @@
   };
 
   #temporary bluetooth fix
-  systemd.tmpfiles.rules = [
-    "d /var/lib/bluetooth 700 root root - -"
-  ];
-  systemd.targets."bluetooth".after = ["systemd-tmpfiles-setup.service"];
+  systemd = {
+    tmpfiles.rules = [
+      "d /var/lib/bluetooth 700 root root - -"
+    ];
+    targets."bluetooth".after = ["systemd-tmpfiles-setup.service"];
+  };
 }

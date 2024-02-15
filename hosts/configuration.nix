@@ -25,12 +25,15 @@
     shell = pkgs.zsh;                       # Default shell
   };
 
-  time.timeZone = "Europe/Brussels";        # Time zone and internationalisation
+
+  programs.sway.enable = true;
+
+  time.timeZone = "Japan/Tokyo";        # Time zone and internationalisation
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {                 # Extra locale settings that need to be overwritten
-      LC_TIME = "nl_BE.UTF-8";
-      LC_MONETARY = "nl_BE.UTF-8";
+      LC_TIME = "ja_JP.UTF-8";
+      LC_MONETARY = "ja_JP.UTF-8";
     };
   };
 
@@ -51,7 +54,10 @@
     };
   };
 
-  hardware.pulseaudio.enable = true;
+  hardware = {
+    # pulseaudio.enable = true;
+    opengl.enable = true;    
+  };
 
   fonts.fonts = with pkgs; [                # Fonts
     (nerdfonts.override {                   # Nerdfont Icons override
@@ -67,7 +73,11 @@
       EDITOR = "nvim";
       VISUAL = "nvim";
     };
+    etc."greetd/environments".text = ''
+      sway
+    '';
     systemPackages = with pkgs; [           # Default packages installed system-wide
+      # _1password-gui
       git
       killall
       nano
@@ -85,7 +95,6 @@
   services = {
     printing = {                                # Printing and drivers for TS5300
       enable = true;
-      #drivers = [ pkgs.cnijfilter2 ];          # There is the possibility cups will complain about missing cmdtocanonij3. I guess this is just an error that can be ignored for now. Also no longer need required since server uses ipp to share printer over network.
     };
     avahi = {                                   # Needed to find wireless printer
       enable = true;
@@ -96,7 +105,6 @@
         userServices = true;
       };
     };
-    printing.enable = true;
     pipewire = {                            # Sound
       enable = true;
       alsa = {
@@ -126,13 +134,18 @@
         HostKeyAlgorithms +ssh-rsa
       '';                                   # Temporary extra config so ssh will work in guacamole
     };
-    flatpak.enable = true;                  # download flatpak file from website - sudo flatpak install <path> - reboot if not showing up
-                                            # sudo flatpak uninstall --delete-data <app-id> (> flatpak list --app) - flatpak uninstall --unused
-                                            # List:
-                                            # com.obsproject.Studio
-                                            # com.parsecgaming.parsec
-                                            # com.usebottles.bottles
-
+    greetd = {
+      enable = true;
+      settings = {
+        default_session.command = ''
+          ${pkgs.greetd.tuigreet}/bin/tuigreet \
+          --time \
+          --asterisks \
+          --user-menu \
+          --cmd sway
+        '';
+      };
+    };
   };
 
   nix = {                                   # Nix Package Manager settings
@@ -152,13 +165,16 @@
       keep-derivations      = true
     '';
   };
-  nixpkgs.config.allowUnfree = true;        # Allow proprietary software.
+
+  nixpkgs.config = {
+    config.allowUnfree = true;        # Allow proprietary software.
+  };
 
   system = {                                # NixOS settings
     autoUpgrade = {                         # Allow auto update (not useful in flakes)
       enable = true;
       channel = "https://nixos.org/channels/nixos-unstable";
     };
-    stateVersion = "22.05";
+    stateVersion = "23.05";
   };
 }

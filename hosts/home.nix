@@ -27,7 +27,7 @@
       btop              # Resource Manager
       nitch             # Minimal fetch
       ranger            # File Manager
-      teerdeer          # Helper
+      tealdeer          # Helper
 
       # Video/Audio
       feh               # Image Viewer
@@ -38,10 +38,9 @@
       stremio           # Media Streamer
 
       # Apps
-      appimage-run      # Runs AppImages on NixOS
+      # appimage-run      # Runs AppImages on NixOS
       firefox           # Browser
-      google-chrome     # Browser
-      remmina           # XRDP & VNC Client
+      # remmina           # XRDP & VNC Client
 
       # File Management
       gnome.file-roller # Archive Manager
@@ -50,12 +49,11 @@
       p7zip             # Zip Encryption
       rsync             # Syncer - $ rsync -r dir1/ dir2/
       unzip             # Zip Files
-      unrar             # Rar Files
+      # unrar             # Rar Files
       zip               # Zip
 
-      # General configuration
-      #git              # Repositories
-      #killall          # Stop Applications
+      git              # Repositories
+      killall          # Stop Applications
       #nano             # Text Editor
       #pciutils         # Computer Utility Info
       #pipewire         # Sound
@@ -70,7 +68,7 @@
       #doom emacs       # Text Editor
       #libnotify        # Dependency for Dunst
       #neovim           # Text Editor
-      #rofi             # Menu
+      rofi             # Menu
       #rofi-power-menu  # Power Menu
       #udiskie          # Auto Mounting
       #vim              # Text Editor
@@ -101,16 +99,16 @@
       # Wayland home-manager
       #mpvpaper         # Video Wallpaper
       #pamixer          # Pulse Audio Mixer
-      #swaybg           # Background
-      #swaylock-fancy   # Screen Locker
-      #waybar           # Bar
+      swaybg           # Background
+      swaylock-fancy   # Screen Locker
+      waybar           # Bar
       #
       # Desktop
       #ansible          # Automation
       #blueman          # Bluetooth
       #deluge           # Torrents
       # discord          # Chat
-      #ffmpeg           # Video Support (dslr)
+      ffmpeg           # Video Support (dslr)
       #gmtp             # Mount MTP (GoPro)
       #gphoto2          # Digital Photography
       #handbrake        # Encoder
@@ -122,56 +120,68 @@
       #prismlauncher    # MC Launcher
       #steam            # Games
       #simple-scan      # Scanning
-      #sshpass          # Ansible dependency
+      sshpass          # sshed dependency
       # 
       # Laptop
       #cbatticon        # Battery Notifications
-      #blueman          # Bluetooth
+      blueman          # Bluetooth
       #light            # Display Brightness
-      #libreoffice      # Office Tools
+      libreoffice      # Office Tools
       #simple-scan      # Scanning
       #
       # Flatpak
       #obs-studio       # Recording/Live Streaming
     ];
-    file.".config/wall".source = ../modules/themes/wall;
-    file.".config/wall.mp4".source = ../modules/themes/wall.mp4;
-    pointerCursor = {                         # This will set cursor system-wide so applications can not choose their own
-      gtk.enable = true;
-      name = "Dracula-cursors";
-      #name = "Catppuccin-Mocha-Dark-Cursors";
-      package = pkgs.dracula-theme;
-      #package = pkgs.catppuccin-cursors.mochaDark;
-      size = 16;
-    };
-    stateVersion = "22.05";
+    # file.".config/wall".source = ../modules/themes/wall;
+    # file.".config/wall.mp4".source = ../modules/themes/wall.mp4;
+    # pointerCursor = {                         # This will set cursor system-wide so applications can not choose their own
+    #   gtk.enable = true;
+    #   name = "Dracula-cursors";
+    #   #name = "Catppuccin-Mocha-Dark-Cursors";
+    #   package = pkgs.dracula-theme;
+    #   #package = pkgs.catppuccin-cursors.mochaDark;
+    #   size = 16;
+    # };
+    stateVersion = "23.05";
   };
 
   programs = {
     home-manager.enable = true;
   };
 
-  gtk = {                                     # Theming
+  wayland.windowManager.sway = {
     enable = true;
-    theme = {
-      name = "Dracula";
-      #name = "Catppuccin-Mocha-Compact-Mauve-Dark";
-      package = pkgs.dracula-theme;
-      #package = pkgs.catppuccin-gtk.override {
-      #  accents = ["mauve"];
-      #  size = "compact";
-      #  variant = "mocha";
-      #};
+    config = rec {
+      modifier = "Mod4"  ;
+      output = {
+        "eDP-1" = {
+          mode = "1600x900@59.984Hz";
+        };
+      };
     };
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
-    font = {
-      #name = "JetBrains Mono Medium";
-      name = "FiraCode Nerd Font Mono Medium";
-    };                                        # Cursor is declared under home.pointerCursor
   };
+
+  # gtk = {                                     # Theming
+  #   enable = true;
+  #   theme = {
+  #     name = "Dracula";
+  #     #name = "Catppuccin-Mocha-Compact-Mauve-Dark";
+  #     package = pkgs.dracula-theme;
+  #     #package = pkgs.catppuccin-gtk.override {
+  #     #  accents = ["mauve"];
+  #     #  size = "compact";
+  #     #  variant = "mocha";
+  #     #};
+  #   };
+  #   iconTheme = {
+  #     name = "Papirus-Dark";
+  #     package = pkgs.papirus-icon-theme;
+  #   };
+  #   font = {
+  #     #name = "JetBrains Mono Medium";
+  #     name = "FiraCode Nerd Font Mono Medium";
+  #   };                                        # Cursor is declared under home.pointerCursor
+  # };
 
   systemd.user.targets.tray = {               # Tray.target can not be found when xsession is not enabled. This fixes the issue.
     Unit = {

@@ -106,8 +106,8 @@
       cleanup = "zap";                    # Uninstall not listed packages and casks
     };
     casks = [
-      "1password"
-      "1password-cli"
+      # "1password"
+      # "1password-cli"
       "anki"
       "alt-tab"
       "audacity"

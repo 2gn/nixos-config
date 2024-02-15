@@ -14,11 +14,6 @@
 { pkgs, ... }:
 
 {
-  imports =
-    [
-      ../../modules/desktop/bspwm/home.nix # Window Manager
-    ];
-
   home = {                                # Specific packages for laptop
     packages = with pkgs; [
       # Applications
@@ -29,11 +24,10 @@
       dirb
       vlc
       gh
-      sublime4
       lmms
       thunderbird
       gimp
-      _ipassword-gui
+      # _1password-gui
       nmap
       nix-tree
       libreoffice
